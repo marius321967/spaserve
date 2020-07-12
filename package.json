@@ -1,6 +1,6 @@
 {
   "name": "@marius321967/spaserve",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "SPA file server for personal projects",
   "main": "index.js",
   "scripts": {
@@ -9,6 +9,7 @@
   "bin": {
     "spaserve": "./bin/spaserve"
   },
+  "files": [ "bin" ],
   "author": "marius321967",
   "license": "ISC",
   "dependencies": {
