@@ -6,7 +6,9 @@ If the file is not found then requests will serve *index.html* with 200 status c
 - `--port=`
 - `--dir=` the directory to serve static files from. Default: `dist`
 - `--notfoundroute=` path (without leading `/`) which will return 404 statuses. SPAs can close & redirect to this route for a proper 404 response. Default route: `404`
-- `--https=true` enables HTTPS instead of HTTP (requires *sslkey* and *sslcert*). Default: `false`
+- `--https=true` enables HTTPS instead of HTTP. Default: `false`. For self-signed certificates, see [Node.JS tutorial](https://nodejs.org/en/knowledge/HTTP/servers/how-to-create-a-HTTPS-server/)
 - `--sslkey` filename of SSL private key. Default: `ssl/key.pem`
 - `--sslcert` filename of SSL certificate. Default: `ssl/cert.pem`
 - `--sslpassphrase` passphrase for SSL private key
+
+Arguments can also be passed via uppercase environment variables.
