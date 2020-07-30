@@ -1,6 +1,6 @@
 {
   "name": "@marius321967/spaserve",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "SPA file server for personal projects",
   "main": "index.js",
   "scripts": {

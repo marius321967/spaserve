@@ -12,6 +12,18 @@ const sslkey = argv.sslkey || process.env.SSLKEY || 'ssl/key.pem';
 const sslcert = argv.sslcert || process.env.SSLCERT || 'ssl/cert.pem';
 const sslpassphrase = argv.sslpassphrase || process.env.SSLPASSPHRASE;
 
+if (argv.help) 
+    return console.info(
+        `spaserve serves static files for single-page apps and is Docker-ready
+Arguments: 
+ --port=
+ --dir= \t\tthe directory to serve static files from. Default: dist
+ --notfoundroute=\tpath (without leading /) which will return 404 statuses. SPAs can close & redirect to this route for a proper 404 response. Default: 404
+ --https=true \t\tenables HTTPS instead of HTTP. Default: false.
+ --sslkey \t\tfilename of SSL private key. Default: ssl/key.pem
+ --sslcert \t\tfilename of SSL certificate. Default: ssl/cert.pem
+ --sslpassphrase\tpassphrase for SSL private key`);
+
 // Validate https arguments
 if (https) {
     if (!sslkey || !sslcert) return console.error('HTTPS is enabled but --ssl* arguments are empty');
@@ -29,14 +41,14 @@ app.use((req, res) => { // This middlware is called when express.static does not
     res.sendFile(path.resolve(dir + '/index.html'));
 })
 
-console.log('Listening on port ' + port);
 if (https) {
     const opts = { 
         key: fs.readFileSync(sslkey).toString(), 
         cert: fs.readFileSync(sslcert).toString(), 
         passphrase: sslpassphrase 
     };
-    require('https').createServer(opts, app).listen(port);
+    require('https').createServer(opts, app).listen(port, () => console.log('HTTPS listening on port ' + port));
 }
-else
-    app.listen(port);
+else {
+    app.listen(port, () => console.log('HTTP listening on port ' + port));
+}
