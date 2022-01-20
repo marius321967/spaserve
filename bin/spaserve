@@ -4,7 +4,7 @@ const argv = require('minimist')(process.argv.slice(2));
 const path = require('path');
 const fs = require('fs');
 const express = require('express');
-const compression = require('compression');
+const srinkRay = require('shrink-ray-current');
 const dir = argv.dir || process.env.DIR || 'dist';
 const notfoundroute = argv.notfoundroute || process.env.NOTFOUNDROUTE || '404';
 const port = argv.port || process.env.PORT || 5000;
@@ -33,8 +33,7 @@ if (https) {
 }
 
 const app = express();
-app.use(compression());
-app.use(express.static(dir));
+app.use(srinkRay());
 
 // Handle 404s for SPA
 app.use((req, res) => { // This middlware is called when express.static does not find the file
