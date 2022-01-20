@@ -12,18 +12,20 @@ const https = argv.https || process.env.HTTPS == 'true' || false;
 const sslkey = argv.sslkey || process.env.SSLKEY || 'ssl/key.pem';
 const sslcert = argv.sslcert || process.env.SSLCERT || 'ssl/cert.pem';
 const sslpassphrase = argv.sslpassphrase || process.env.SSLPASSPHRASE;
+const maxage = argv.maxage || process.env.CACHE_MAXAGE || 600;
 
 if (argv.help) 
     return console.info(
         `spaserve serves static files for single-page apps and is Docker-ready
 Arguments: 
- --port=
- --dir= \t\tthe directory to serve static files from. Default: dist
- --notfoundroute=\tpath (without leading /) which will return 404 statuses. SPAs can close & redirect to this route for a proper 404 response. Default: 404
- --https=true \t\tenables HTTPS instead of HTTP. Default: false.
+ --port
+ --dir \t\tthe directory to serve static files from. Default: dist
+ --notfoundroute \tpath (without leading /) which will return 404 statuses. SPAs can close & redirect to this route for a proper 404 response. Default: 404
+ --https \t\tenables HTTPS instead of HTTP. Default: false
  --sslkey \t\tfilename of SSL private key. Default: ssl/key.pem
  --sslcert \t\tfilename of SSL certificate. Default: ssl/cert.pem
- --sslpassphrase\tpassphrase for SSL private key`);
+ --sslpassphrase\tpassphrase for SSL private key
+ --maxage \t\tseconds in Cache-Control header. Default: 600`);
 
 // Validate https arguments
 if (https) {
@@ -34,6 +36,9 @@ if (https) {
 
 const app = express();
 app.use(srinkRay());
+app.use(express.static(dir, {
+    maxAge: 1000 * maxage,
+}));
 
 // Handle 404s for SPA
 app.use((req, res) => { // This middlware is called when express.static does not find the file
