@@ -5,6 +5,7 @@ const path = require('path');
 const fs = require('fs');
 const express = require('express');
 const srinkRay = require('shrink-ray-current');
+
 const dir = argv.dir || process.env.DIR || 'dist';
 const notfoundroute = argv.notfoundroute || process.env.NOTFOUNDROUTE || '404';
 const port = argv.port || process.env.PORT || 5000;
@@ -51,9 +52,13 @@ if (https) {
     const opts = { 
         key: fs.readFileSync(sslkey).toString(), 
         cert: fs.readFileSync(sslcert).toString(), 
-        passphrase: sslpassphrase 
+        passphrase: sslpassphrase,
+        
+        spdy: {
+            protocols: [ 'h2', 'http/1.1' ],
+        },
     };
-    require('https').createServer(opts, app).listen(port, () => console.log('HTTPS listening on port ' + port));
+    require('spdy').createServer(opts, app).listen(port, () => console.log('HTTPS listening on port ' + port));
 }
 else {
     app.listen(port, () => console.log('HTTP listening on port ' + port));

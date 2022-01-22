@@ -2,6 +2,8 @@ Single Page App (SPA) file server based on *Express.js Static* middleware.
 
 If the file is not found then requests will serve *index.html* with 200 status code. If user requests a special route (default: */404*) then index.html will be served with a 404 status code.
 
+Supports HTTP2 when running in HTTPS mode (using [spdy](https://www.npmjs.com/package/spdy)).
+
 The tool runs a single port and does not provide HTTP to HTTPS redirects. For this, find a separate tool (Docker: [morbz/docker-web-redirect](https://hub.docker.com/r/morbz/docker-web-redirect/)).
 
 ### Arguments

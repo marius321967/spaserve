@@ -1,6 +1,6 @@
 {
   "name": "@marius321967/spaserve",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "SPA file server for personal projects",
   "main": "index.js",
   "scripts": {
@@ -15,8 +15,9 @@
   "author": "marius321967",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.2",
     "minimist": "^1.2.5",
-    "shrink-ray-current": "^4.1.3"
+    "shrink-ray-current": "^4.1.3",
+    "spdy": "^4.0.2"
   }
 }
