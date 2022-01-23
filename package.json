@@ -2,6 +2,10 @@
   "name": "@marius321967/spaserve",
   "version": "1.3.0",
   "description": "SPA file server for personal projects",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/marius321967/spaserve.git"
+  },
   "main": "index.js",
   "scripts": {
     "start": "node ./bin/spaserve"
